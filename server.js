@@ -2,15 +2,21 @@ import express, { json, urlencoded } from "express";
 import cors from "cors";
 import handleOpenAI from "./generate.js";
 import { Configuration, OpenAIApi } from "openai";
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
+var corsOptions = {
+    origin: "http://localhost:3000"
+  };
+app.use(cors(corsOptions));
 
 app.use(json());
 app.use(urlencoded({ extended: false }));
-app.use(cors());
+// app.use(cors());
 
 const configuration = new Configuration({
-    apiKey: "",
+    apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
@@ -18,6 +24,6 @@ app.post("/generate", (req, res) => {
     handleOpenAI(req, res, configuration, openai);
 });
 
-app.listen(5000, () => {
-    console.log("app is running on port 5000");
+app.listen(8080, () => {
+    console.log("app is running on port 8080");
 });
