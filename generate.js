@@ -1,4 +1,5 @@
 const handleOpenAI = async function (req, res, configuration, openai) {
+    const prompt =  req.body.content|| '';
     if (!configuration.apiKey) {
         res.status(500).json({
             error: {
@@ -10,11 +11,12 @@ const handleOpenAI = async function (req, res, configuration, openai) {
     try {
         const completion = await openai.createChatCompletion({
             model: "gpt-3.5-turbo",
-            messages: [
-                { role: "system", content: "You are a helpful assistant." },
-                { role: "user", content: "Hello world" },
-            ],
+            messages:   [
+                {"role": "system", "content": "You are a helpful assistant and you give answers in a list. People generally ask about text and books."},
+                {"role": "user", "content": "Now, about this following text, " + prompt + ". Please ask me 10 question about it."}
+            ]
         });
+        console.log(completion.data);
         res.send(completion.data);
     } catch (error) {
         // Consider adjusting the error handling logic for your use case
