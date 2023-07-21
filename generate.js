@@ -13,7 +13,7 @@ const handleOpenAI = async function (req, res, configuration, openai) {
             model: "gpt-3.5-turbo",
             messages:   [
                 {"role": "system", "content": "You are a helpful assistant and you give answers in a list. People generally ask about text and books."},
-                {"role": "user", "content": "Now, about this following text, " + prompt + ". Please ask me 10 question about it."}
+                {"role": "user", "content": "Now, about this following text, " + prompt + ". Please ask me 10 questions about it."}
             ]
         });
         console.log(completion.data);
