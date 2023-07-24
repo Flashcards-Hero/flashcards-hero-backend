@@ -1,1 +1,1 @@
-start using`nodemon server.js`
+start using it by calling `nodemon server.js`
