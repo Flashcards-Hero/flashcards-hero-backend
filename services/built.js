@@ -8,7 +8,7 @@ import * as fs from "fs";
 
 export default async function run(req, res) {
     // const text = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     const text = fs.readFileSync("test_file1.txt", "utf8");
     console.log("Finished text");
     const textSplitter = new RecursiveCharacterTextSplitter({ chunkSize: 1000 });
@@ -38,14 +38,7 @@ export default async function run(req, res) {
         },
     });
 
-    const question = "What is the document about?";
-    const answer = await chain.call({ question });
-    console.log("res: ", answer);
-
-    const followUpRes = await chain.call({ question: "Is it a good one?" });
-    console.log("followUpRes: ", followUpRes);
-
-    // res.status(200).json("Model built successfully");
+    req.app.locals.chain = chain;
+    res.status(200).json("Model built successfully");
     // else res.status(400).json("Model is not built");
-    return chain;
 }

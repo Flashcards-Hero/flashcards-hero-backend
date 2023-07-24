@@ -26,9 +26,8 @@ app.use(urlencoded({ extended: false }));
 //     handleOpenAI(req, res, configuration, openai);
 // });
 
-app.locals.chain = null;
 app.post("/built", (req, res) => {
-    app.locals.chain = run(req, res);
+    run(req, res);
 });
 
 app.post("/ask", (req, res) => {
