@@ -2,7 +2,7 @@ import express, { json, urlencoded } from "express";
 import cors from "cors";
 // import handleOpenAI from "./generate.js";
 // import { Configuration, OpenAIApi } from "openai";
-import run from "./services/built.js";
+import run from "./services/build.js";
 import ask from "./services/ask.js";
 import dotenv from "dotenv";
 dotenv.config();
@@ -26,7 +26,7 @@ app.use(urlencoded({ extended: false }));
 //     handleOpenAI(req, res, configuration, openai);
 // });
 
-app.post("/built", (req, res) => {
+app.post("/build", (req, res) => {
     run(req, res);
 });
 
