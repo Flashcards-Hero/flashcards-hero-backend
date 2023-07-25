@@ -13,9 +13,15 @@ var corsOptions = {
     origin: "http://localhost:3000",
 };
 app.use(cors(corsOptions));
-
 app.use(json());
 app.use(urlencoded({ extended: false }));
+
+const chat_history = [];
+function customChatHistory(req, res, next) {
+    req.chat_history = chat_history;
+    next();
+}
+app.use(customChatHistory);
 // app.use(cors());
 
 // const configuration = new Configuration({
@@ -32,11 +38,11 @@ app.post("/build", (req, res) => {
 });
 
 app.post("/ask", (req, res) => {
-    ask(req, res);
+    ask(req, res, req.chat_history);
 });
 
 app.post("/followUp", (req, res) => {
-    followUp(req, res);
+    followUp(req, res, req.chat_history);
 });
 
 app.listen(8080, () => {
