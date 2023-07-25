@@ -4,6 +4,7 @@ import { HNSWLib } from "langchain/vectorstores/hnswlib";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { BufferMemory } from "langchain/memory";
+import { CUSTOM_QUESTION_GENERATOR_CHAIN_PROMPT } from "../prompt/template.js";
 import * as fs from "fs";
 
 export default async function run(req, res) {
@@ -36,11 +37,11 @@ export default async function run(req, res) {
         }),
         questionGeneratorChainOptions: {
             llm: fasterModel,
+            template: CUSTOM_QUESTION_GENERATOR_CHAIN_PROMPT,
         },
     });
 
     req.app.locals.chain = chain;
-    req.app.locals.chat_history = [];
     res.status(200).json("Model built successfully");
     // else res.status(400).json("Model is not built");
 }
