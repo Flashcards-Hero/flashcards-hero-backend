@@ -6,6 +6,7 @@ import run from "./services/build.js";
 import ask from "./services/ask.js";
 import followUp from "./services/followUp.js";
 import dotenv from "dotenv";
+import { ChatMessageHistory } from "langchain/memory";
 dotenv.config();
 
 const app = express();
@@ -16,7 +17,7 @@ app.use(cors(corsOptions));
 app.use(json());
 app.use(urlencoded({ extended: false }));
 
-const chat_history = [];
+const chat_history = new ChatMessageHistory();
 function customChatHistory(req, res, next) {
     req.chat_history = chat_history;
     next();
