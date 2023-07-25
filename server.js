@@ -4,6 +4,7 @@ import cors from "cors";
 // import { Configuration, OpenAIApi } from "openai";
 import run from "./services/build.js";
 import ask from "./services/ask.js";
+import followUp from "./services/followUp.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -32,6 +33,10 @@ app.post("/build", (req, res) => {
 
 app.post("/ask", (req, res) => {
     ask(req, res);
+});
+
+app.post("/followUp", (req, res) => {
+    followUp(req, res);
 });
 
 app.listen(8080, () => {
